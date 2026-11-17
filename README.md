@@ -1,29 +1,3 @@
-## Before you're done
-
-This repo has been created for your Microsoft Ignite 2026 session. Here's how to get it ready.
-
-**Easiest path — use the agent (recommended):**
-
-- Open GitHub Copilot Chat and say `help me initialize repo`. The agent will walk you through getting the README populated.
-- When you're ready to publish, say `help me finalize repo`. The agent will clean up unused folders, validate everything, and remove this "Before you're done" section and other extra stuff that attendees don't need to see.
-- Curious how it works? Read the [agent workflow](.github/AGENT-WORKFLOW.md).
-
-**Doing it manually?**
-
-Fill in the sections below yourself, then:
-
-- Delete any placeholder folders you don't need (`data/`, `infra/`, etc.)
-- Delete this "Before you're done" section
-- Delete `.github/agents/`, `.github/tests/`, `.github/copilot-instructions.md`, and `.github/AGENT-WORKFLOW.md` — these are template tooling, not part of your published repo
-
-**Folder conventions:**
-
-- Attendee step-by-step guidance goes in `instructions/`. If you use MkDocs or a docs site instead, put it in `docs/` and link to it from this README.
-- Reference material and background reading go in `docs/`.
-- You can add a `.devcontainer/` folder if needed.
-
----
-
 <a name="start-building"></a>
 
 <p align="center">
@@ -32,45 +6,47 @@ Fill in the sections below yourself, then:
 
 # [Microsoft Ignite 2026](https://ignite.microsoft.com)
 
-## 🔥BRKXXX: SESSION TITLE
+## 🔥THR985: Enterprise Data & AI with Azure, Azure Databricks and Snowflake
 
 ### Session description
 
-Add your session description here. Keep it concise — 2-3 sentences about what attendees will learn and why it matters.
+How do you build an AI-ready data platform when your estate spans Azure, Snowflake, and Azure Databricks? This session examines a real enterprise architecture using medallion layers, Azure Data Lake Storage, Apache Iceberg, catalog federation, identity, and governed agent access. Learn the interoperability decisions, performance traps, and cost trade-offs that appear when multiple platform engines must operate as one trusted Data and AI ecosystem.
 
 ### 🚀 Getting started
 
 #### In a guided session
 
-If you're following along during a live session:
+If you're watching the session, live or on demand:
 
-1. Step 1
-2. Step 2
-3. Open [`instructions/`](instructions/README.md) when this session includes
-   attendee step-by-step guidance
+1. Demo 1: see one copy of the sales data, stored as Apache Iceberg in Azure Data Lake Storage, read by Snowflake and Azure Databricks with their own compute
+2. Demo 2: see Ava and Ben ask the same question in the Microsoft Foundry playground. Agents in Snowflake and Azure Databricks answer, each person sees only their own region, and then one agent is blocked from Foundry
+3. Afterwards, open the [resources from the session](docs/README.md#resources-from-the-session), or follow the [instructions](instructions/README.md) to build it yourself
 
 #### On your own
 
 If you're learning at your own pace:
 
 1. Clone this repository
-2. Set up your environment
-3. Follow the session guidance in [`instructions/`](instructions/README.md), or
-   use the linked docs-site entry point when this repository uses that pattern
+2. Check the [prerequisites](instructions/README.md#prerequisites): an Azure subscription where you're Owner, a Microsoft Entra tenant where you're Global Administrator, and a new Snowflake Enterprise trial account on Microsoft Azure East US 2
+3. Follow the [step-by-step instructions](instructions/README.md) to build the proof of concept, and read the [architecture and design notes](docs/README.md) for why it's built this way
 
 ### 🎯 Learning outcomes
 
 By the end of this session, you will be able to:
 
-- Outcome 1
-- Outcome 2
-- Outcome 3
+- Keep one copy of your data as Apache Iceberg tables in Azure Data Lake Storage, and let Snowflake and Azure Databricks each read it with their own compute through catalog federation
+- Put an agent in front of each data product, with Snowflake Cortex Agents and Azure Databricks Genie agents behind MCP servers, and pass each user's Microsoft Entra identity end to end so people see only their own data
+- Govern those agents from Microsoft Foundry with Control Plane, an AI gateway and a kill switch, and plan for the policy, performance and cost trade-offs of several engines on one copy
 
 ### 💻 Technologies used
 
-- Technology 1
-- Technology 2
-- Technology 3
+- Azure Data Lake Storage and Apache Iceberg
+- Snowflake: Cortex Agents, Cortex Analyst semantic views, Cortex Search and Snowflake-managed MCP servers
+- Azure Databricks: Unity Catalog, Snowflake catalog federation, Genie agents and the Genie Agent MCP server (preview)
+- Microsoft Foundry: Foundry Agent Service, Control Plane and Foundry Models (gpt-5-mini)
+- Azure API Management as the AI gateway
+- Microsoft Entra ID
+- Azure Key Vault and Application Insights
 
 ### 📚 Continue your learning
 
@@ -84,8 +60,6 @@ Pick your next step based on your learning style:
 | **[Microsoft Foundry Community](https://aka.ms/MicrosoftFoundryDiscord-Ignite26)** | Connect with other learners and experts in our Discord community |
 
 ### 🌟 Microsoft Learn MCP Server
-
-<!-- Remove this section if the Microsoft Learn MCP Server is not relevant to the session. -->
 
 The Microsoft Learn MCP Server gives your AI agent direct access to Microsoft's official documentation — grounded, up-to-date answers about the topics in this session.
 
@@ -102,17 +76,12 @@ For more information, visit the [Learn MCP Server repo](https://aka.ms/learnmcp)
 
 ### 👥 Content owners
 
-<!-- TODO: Add yourself as a content owner
-1. Change the src in the image tag to {your github url}.png
-2. Change INSERT NAME HERE to your name
-3. Change the github url in the final href to your url. -->
-
 <table>
 <tr>
-    <td align="center"><a href="http://github.com/yourGitHubHandle">
-        <img src="https://github.com/yourGitHubHandle.png" width="100px;" alt="INSERT NAME HERE"/><br />
-        <sub><b>INSERT NAME HERE</b></sub></a><br />
-            <a href="https://github.com/yourGitHubHandle" title="talk">📢</a>
+    <td align="center"><a href="http://github.com/ehsaneskandariboc">
+        <img src="https://github.com/ehsaneskandariboc.png" width="100px;" alt="Ehsan Eskandari"/><br />
+        <sub><b>Ehsan Eskandari</b></sub></a><br />
+            <a href="https://github.com/ehsaneskandariboc" title="talk">📢</a>
     </td>
 </tr></table>
 

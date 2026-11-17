@@ -1,0 +1,8 @@
+# Local configuration, secrets and generated state - never commit these
+config/settings.json
+state/
+.secrets/
+.venv/
+data-generator/data/
+__pycache__/
+*.pyc

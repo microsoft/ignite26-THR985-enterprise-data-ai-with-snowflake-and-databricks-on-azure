@@ -1,0 +1,97 @@
+{
+  "_comment": "Copy to settings.json and fill the empty values. Names in {braces} are derived; {suffix} is generated once by 00-preflight.ps1 and stored in state/outputs.json.",
+  "prefix": "contoso",
+  "location": "eastus2",
+  "_tenantId": "Your PERSONAL Entra tenant ID. Every script stops if the PoC's Azure CLI profile is signed in to any other tenant.",
+  "tenantId": "",
+  "subscriptionId": "",
+  "resourceGroup": "rg-contoso-thr985",
+  "names": {
+    "storageAccount": "contosodl{suffix}",
+    "keyVault": "kv-contoso-{suffix}",
+    "logAnalytics": "law-contoso-{suffix}",
+    "appInsights": "appi-contoso-{suffix}",
+    "databricksWorkspace": "dbw-contoso-{suffix}",
+    "databricksManagedResourceGroup": "rg-contoso-dbw-managed-{suffix}",
+    "accessConnector": "dbac-contoso-{suffix}",
+    "foundryAccount": "fdy-contoso-{suffix}",
+    "foundryProject": "contoso-thr985"
+  },
+  "containers": {
+    "_comment": "databricksPlatform holds the Unity Catalog metadata cache for the Snowflake foreign catalogs (written by Databricks only).",
+    "landing": "landing",
+    "snowflakeProducts": ["core", "commercial", "loyalty"],
+    "databricksProducts": ["demand-forecast", "supply-chain"],
+    "databricksPlatform": "uc-federation"
+  },
+  "entra": {
+    "_comment": "domain: leave empty to use the tenant's default verified domain (for example contoso123.onmicrosoft.com).",
+    "domain": "",
+    "users": [
+      { "alias": "ava", "displayName": "Ava (West region manager)", "region": "West" },
+      { "alias": "ben", "displayName": "Ben (East region analyst)", "region": "East" },
+      { "alias": "cara", "displayName": "Cara (HQ commercial analyst)", "region": "All" }
+    ],
+    "groups": {
+      "West": "contoso-region-west",
+      "East": "contoso-region-east",
+      "Central": "contoso-region-central",
+      "South": "contoso-region-south",
+      "All": "contoso-hq-analysts"
+    },
+    "_adminGroup": "Data admins see every region in Databricks row filters; the signed-in admin is added to it.",
+    "adminGroup": "contoso-data-admins",
+    "apps": {
+      "snowflakeResource": "contoso-snowflake-external-oauth",
+      "foundryMcpClient": "contoso-foundry-mcp-client"
+    }
+  },
+  "foundry": {
+    "_model": "gpt-5-mini is in the Free Tier that a new or Visual Studio subscription can start on. Step 45 pins this version (no auto-upgrade). Global Standard bills per token, so the 200K tokens/min capacity costs nothing extra; it leaves room for large Cortex Agent responses.",
+    "model": "gpt-5-mini",
+    "modelVersion": "2025-08-07",
+    "deploymentName": "gpt-5-mini",
+    "deploymentSku": "GlobalStandard",
+    "capacityThousandTpm": 200,
+    "_connections": "Names of the custom-OAuth project connections you create in the Foundry portal (README step F2), one per MCP server.",
+    "connections": {
+      "commercialAgent": "snowflake-commercial-agent",
+      "commercialSql": "snowflake-commercial-sql",
+      "loyaltyAgent": "snowflake-loyalty-agent",
+      "demandForecast": "genie-demand-forecast",
+      "supplyChain": "genie-supply-chain"
+    },
+    "_snowflakeTokenTypeHeader": "Spike S2 switch: true adds X-Snowflake-Authorization-Token-Type: OAUTH to the Snowflake MCP tools.",
+    "snowflakeTokenTypeHeader": false
+  },
+  "snowflake": {
+    "_comment": "account: the account identifier (orgname-accountname) of the NEW Enterprise trial in Azure East US 2.",
+    "account": "",
+    "adminUser": "",
+    "adminRole": "ACCOUNTADMIN",
+    "privateKeyPath": ".secrets/snowflake_admin_rsa_key.p8",
+    "warehouse": "WH_CONTOSO_XS",
+    "cortexCrossRegion": "AZURE_US",
+    "_cortexAgentModel": "Leave empty until step 65 (SF4) lists the models; then pin one that Cortex Agents accept (no 'auto'). The PoC uses openai-gpt-5-mini (Azure US cross-region).",
+    "cortexAgentModel": ""
+  },
+  "databricks": {
+    "_comment": "accountId: copy from https://accounts.azuredatabricks.net (top-right user menu) after the workspace exists.",
+    "accountId": "",
+    "_sku": "Pricing tier of the Azure Databricks workspace: trial = Premium features with 14 days of free DBUs, then compute stops until you upgrade the workspace to premium (README step 55); premium = billed from day one.",
+    "sku": "trial",
+    "warehouseName": "wh-contoso-serverless"
+  },
+  "budget": {
+    "_comment": "Alerts only - nothing is suspended or blocked.",
+    "alertEmail": "",
+    "azureMonthlyUsd": 150,
+    "snowflakeMonthlyCredits": 40,
+    "databricksMonthlyUsd": 100
+  },
+  "demo": {
+    "weekStart": "2026-11-09",
+    "weekEnd": "2026-11-15",
+    "dataEndDate": "2026-11-15"
+  }
+}
